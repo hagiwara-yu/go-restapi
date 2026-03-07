@@ -1,4 +1,4 @@
-FROM golang:1.25-bookworm AS dev
+FROM golang:1.26-bookworm AS dev
 WORKDIR /usr/src/app
 
 RUN go install github.com/air-verse/air@latest
