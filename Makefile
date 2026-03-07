@@ -6,10 +6,12 @@ SHELL := env PATH="$(PATH)" /bin/bash
 GOARCH = amd64
 
 build:
-	CGO_ENABLED=0 go build -o build/${BINARY}
+	mkdir -p build
+	CGO_ENABLED=0 go build -o build/${BINARY} ./cmd/api
 
 build-linux:
-	CGO_ENABLED=0 GOOS=linux GOARCH=${GOARCH} go build -o build/${BINARY}-linux-${GOARCH} .
+	mkdir -p build
+	CGO_ENABLED=0 GOOS=linux GOARCH=${GOARCH} go build -o build/${BINARY}-linux-${GOARCH} ./cmd/api
 
 mod:
 	go mod download
@@ -17,7 +19,6 @@ mod:
 test:
 	go test $(shell go list ${MAKEFILE_DIR}/...)
 
-#https://github.com/golangci/golangci-lint/issues/2649
 lint:
 	if ! [ -x $(GOPATH)/bin/golangci-lint ]; then \
 		curl -sSfL https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s -- -b $(go env GOPATH)/bin v1.45.2; \
@@ -27,4 +28,7 @@ lint:
 vet:
 	go vet ./...
 
-.PHONY:	build mod test lint vet clean
+.PHONY: build mod test lint vet clean
+
+run:
+	go run ./cmd/api
