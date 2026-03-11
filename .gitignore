@@ -27,9 +27,26 @@ go.work.sum
 # env file
 .env
 .envrc
+.env.stg
+.env.prod
 
-# Editor/IDE
-# .idea/
-# .vscode/
+
+Editor/IDE
+.idea/
+.vscode/
 
 build
+
+#  Local .terraform directories
+**/.terraform/*
+
+# .tfstate files
+*.tfstate
+*.tfstate.*
+*.terraform.*
+
+# .tfvars files
+*.tfvars
+
+# archive
+archive*
